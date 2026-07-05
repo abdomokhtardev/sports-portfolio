@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Base resets & smooth scroll ─────────────────────────────────────────── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-offWhite dark:bg-darkBase;
+    @apply text-lightInk dark:text-slate-200;
+    @apply antialiased font-sans;
+    @apply selection:bg-goldenYellow/40 selection:text-lightInk;
+    @apply dark:selection:bg-ceramicBlue/40 dark:selection:text-white;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Smooth transitions on all sections when toggling dark mode */
+  section, footer, header, main {
+    transition: background-color 0.3s ease;
+  }
+}
+
+/* ── Utility classes ─────────────────────────────────────────────────────── */
+@layer utilities {
+
+  /*
+   * .azulejo-bg
+   * Portuguese azulejo tile pattern rendered as an SVG data-URI background.
+   * Color adapts between light (#003399) and dark (#4466CC) modes.
+   */
+  .azulejo-bg {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Crect x='2' y='2' width='56' height='56' fill='none' stroke='%23003399' stroke-width='1.5'/%3E%3Cpolygon points='30,8 52,30 30,52 8,30' fill='none' stroke='%23003399' stroke-width='1'/%3E%3Cline x1='2' y1='2' x2='10' y2='10' stroke='%23003399' stroke-width='0.8'/%3E%3Cline x1='58' y1='2' x2='50' y2='10' stroke='%23003399' stroke-width='0.8'/%3E%3Cline x1='2' y1='58' x2='10' y2='50' stroke='%23003399' stroke-width='0.8'/%3E%3Cline x1='58' y1='58' x2='50' y2='50' stroke='%23003399' stroke-width='0.8'/%3E%3Ccircle cx='30' cy='30' r='5' fill='none' stroke='%23003399' stroke-width='1'/%3E%3Ccircle cx='30' cy='30' r='2' fill='%23003399'/%3E%3Cline x1='30' y1='25' x2='30' y2='15' stroke='%23003399' stroke-width='0.8'/%3E%3Cline x1='30' y1='35' x2='30' y2='45' stroke='%23003399' stroke-width='0.8'/%3E%3Cline x1='25' y1='30' x2='15' y2='30' stroke='%23003399' stroke-width='0.8'/%3E%3Cline x1='35' y1='30' x2='45' y2='30' stroke='%23003399' stroke-width='0.8'/%3E%3Ccircle cx='2' cy='2' r='1.5' fill='%23003399'/%3E%3Ccircle cx='58' cy='2' r='1.5' fill='%23003399'/%3E%3Ccircle cx='2' cy='58' r='1.5' fill='%23003399'/%3E%3Ccircle cx='58' cy='58' r='1.5' fill='%23003399'/%3E%3C/svg%3E");
+  }
+
+  .dark .azulejo-bg {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Crect x='2' y='2' width='56' height='56' fill='none' stroke='%234466CC' stroke-width='1.5'/%3E%3Cpolygon points='30,8 52,30 30,52 8,30' fill='none' stroke='%234466CC' stroke-width='1'/%3E%3Cline x1='2' y1='2' x2='10' y2='10' stroke='%234466CC' stroke-width='0.8'/%3E%3Cline x1='58' y1='2' x2='50' y2='10' stroke='%234466CC' stroke-width='0.8'/%3E%3Cline x1='2' y1='58' x2='10' y2='50' stroke='%234466CC' stroke-width='0.8'/%3E%3Cline x1='58' y1='58' x2='50' y2='50' stroke='%234466CC' stroke-width='0.8'/%3E%3Ccircle cx='30' cy='30' r='5' fill='none' stroke='%234466CC' stroke-width='1'/%3E%3Ccircle cx='30' cy='30' r='2' fill='%234466CC'/%3E%3Cline x1='30' y1='25' x2='30' y2='15' stroke='%234466CC' stroke-width='0.8'/%3E%3Cline x1='30' y1='35' x2='30' y2='45' stroke='%234466CC' stroke-width='0.8'/%3E%3Cline x1='25' y1='30' x2='15' y2='30' stroke='%234466CC' stroke-width='0.8'/%3E%3Cline x1='35' y1='30' x2='45' y2='30' stroke='%234466CC' stroke-width='0.8'/%3E%3Ccircle cx='2' cy='2' r='1.5' fill='%234466CC'/%3E%3Ccircle cx='58' cy='2' r='1.5' fill='%234466CC'/%3E%3Ccircle cx='2' cy='58' r='1.5' fill='%234466CC'/%3E%3Ccircle cx='58' cy='58' r='1.5' fill='%234466CC'/%3E%3C/svg%3E");
+  }
+
+  /* Editorial Drop-cap styling for elegant, handcrafted look */
+  .drop-cap::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    float: left;
+    font-size: 3.5rem;
+    line-height: 2.8rem;
+    padding-top: 4px;
+    padding-right: 12px;
+    padding-left: 3px;
+    @apply text-ceramicBlue dark:text-goldenYellow;
+  }
+
+  /* Glazed ceramic tile card style */
+  .glazed-tile {
+    position: relative;
+    overflow: hidden;
+    @apply bg-lightCard dark:bg-darkCard border-4 border-double border-ceramicBlue/25 dark:border-blue-400/20 shadow-lg shadow-ceramicBlue/5 dark:shadow-none transition-all duration-300;
+  }
+  
+  .glazed-tile::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    pointer-events: none;
+    @apply border border-ceramicBlue/5 dark:border-blue-400/10 rounded-2xl;
+  }
+
+  .glazed-tile::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.4) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: skewX(-25deg);
+    pointer-events: none;
+    transition: left 0.75s ease-out;
+  }
+  
+  .dark .glazed-tile::after {
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.25) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+
+  .glazed-tile:hover::after {
+    left: 150%;
+  }
+
+  /* Calçada wave separator class using clean embedded SVG waves */
+  .calcada-wave {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,0 C300,90 900,-30 1200,60 L1200,120 L0,120 Z' fill='%23F4B41A' opacity='0.12'/%3E%3Cpath d='M0,30 C300,120 900,0 1200,90 L1200,120 L0,120 Z' fill='%23003399' opacity='0.06'/%3E%3C/svg%3E");
+    background-size: 100% 100%;
+  }
+
+  /* Custom minimal scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-slate-200 dark:bg-slate-700 rounded-full;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-300 dark:bg-slate-600;
+  }
+}
