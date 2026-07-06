@@ -1,5 +1,6 @@
 import AzulejoPattern from './ui/AzulejoPattern';
 import SocialIcon from './ui/SocialIcon';
+import {Link} from "react-router-dom";  
 
 // ── Arrow for the CTA submit button ──
 const ArrowIcon = () => (
@@ -125,7 +126,7 @@ const Footer = ({
             {/* Copyright & Dev Links */}
             <div className="flex flex-col gap-2 items-center sm:items-start">
               <p className="font-sans text-xs text-white/40 tracking-wide text-center sm:text-left">
-                جميع الحقوق محفوظة لدى abdomokhtardev © 2026<a href="/dashboard" aria-hidden="true" tabIndex={-1} className="text-transparent select-none ml-px" style={{ fontSize: '6px', lineHeight: 1, opacity: 0.01, cursor: 'default', userSelect: 'none' }}>·</a>
+                جميع الحقوق محفوظة لدى abdomokhtardev © 2026<Link to="/dashboard" aria-hidden="true" tabIndex={-1} className="text-transparent select-none ml-px" style={{ fontSize: '6px', lineHeight: 1, opacity: 0.01, cursor: 'default', userSelect: 'none' }}>·</Link>
               </p>
               <div className="flex items-center gap-3">
                 <a href="https://github.com/abdomokhtardev" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white transition-colors" title="GitHub">

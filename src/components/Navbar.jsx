@@ -1,3 +1,5 @@
+import { Link, useLocation } from 'react-router-dom';
+
 // ── Icons ─────────────────────────────────────────────────────────────────────
 
 const SunIcon = () => (
@@ -12,7 +14,7 @@ const MoonIcon = () => (
   </svg>
 );
 
-// ── Nav links (Portuguese labels for cultural authenticity) ───────────────────
+// ── Nav links ───────────────────
 
 const NAV_LINKS = [
   { href: '#about',        label: 'Sobre'       },
@@ -24,60 +26,57 @@ const NAV_LINKS = [
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
-/**
- * Navbar — sticky top bar with Portuguese-labelled navigation and dark mode toggle.
- *
- * @param {{ isDark: boolean, onToggleTheme: () => void }} props
- */
-const Navbar = ({ isDark, onToggleTheme }) => (
-  <header className="fixed top-0 inset-x-0 z-50 bg-offWhite/90 dark:bg-darkBase/80 backdrop-blur-md border-b border-lightBorder dark:border-darkBorder/60 transition-colors duration-300">
-    {/* Fine-line flag accent top bar */}
-    <div className="h-0.5 w-full bg-gradient-to-r from-verdePortugal via-ceramicBlue to-goldenYellow opacity-90" />
-    
-    <nav
-      className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 h-16 flex items-center justify-between"
-      aria-label="Primary navigation"
-    >
-      {/* ── Wordmark ── */}
-      <a
-        href="#hero"
-        className="font-serif text-lg font-bold text-ceramicBlue dark:text-white tracking-tight hover:text-goldenYellow dark:hover:text-goldenYellow transition-colors duration-200"
-      >
-        Intérprete<span className="text-goldenYellow">.</span>
-      </a>
- 
-      {/* ── Links (desktop) ── */}
-      <ul className="hidden md:flex items-center gap-7 list-none m-0 p-0">
-        {NAV_LINKS.map(({ href, label }) => (
-          <li key={href}>
-            <a
-              href={href}
-              className="font-sans text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-ceramicBlue dark:hover:text-goldenYellow transition-colors duration-200 tracking-wide"
-            >
-              {label}
-            </a>
-          </li>
-        ))}
-      </ul>
+const Navbar = ({ isDark, onToggleTheme }) => {
+  // معرفة المسار الحالي
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+  const LogoTag = isHomePage ? 'a' : Link;
+const logoProps = isHomePage ? { href: '#hero' } : { to: '/' };
 
-      {/* ── Dark mode toggle ── */}
-      <button
-        id="theme-toggle"
-        onClick={onToggleTheme}
-        aria-label={isDark ? 'Mudar para modo claro' : 'Mudar para modo escuro'}
-        className="
-          w-10 h-10 rounded-full flex items-center justify-center
-          text-slate-500 dark:text-slate-400
-          hover:text-ceramicBlue dark:hover:text-goldenYellow
-          hover:bg-ceramicBlue/[0.06] dark:hover:bg-goldenYellow/[0.08]
-          border border-slate-200 dark:border-darkBorder
-          transition-all duration-200
-        "
+  return (
+    <header className="fixed top-0 inset-x-0 z-50 bg-offWhite/90 dark:bg-darkBase/80 backdrop-blur-md border-b border-lightBorder dark:border-darkBorder/60 transition-colors duration-300">
+      <div className="h-0.5 w-full bg-gradient-to-r from-verdePortugal via-ceramicBlue to-goldenYellow opacity-90" />
+      
+      <nav
+        className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 h-16 flex items-center justify-between"
+        aria-label="Primary navigation"
       >
-        {isDark ? <SunIcon /> : <MoonIcon />}
-      </button>
-    </nav>
-  </header>
-);
+        {/* ── Wordmark ── */}
+        <LogoTag
+  {...logoProps}
+  className="font-serif text-lg font-bold text-ceramicBlue dark:text-white tracking-tight hover:text-goldenYellow transition-colors duration-200"
+>
+  Intérprete<span className="text-goldenYellow">.</span>
+</LogoTag> 
+        {/* ── Links (desktop) ── */}
+        <ul className="hidden md:flex items-center gap-7 list-none m-0 p-0">
+          {isHomePage ? (
+            // لو في الصفحة الرئيسية: اعرض روابط الأقسام
+            NAV_LINKS.map(({ href, label }) => (
+              <li key={href}>
+                <a
+                  href={href}
+                  className="font-sans text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-ceramicBlue dark:hover:text-goldenYellow transition-colors duration-200 tracking-wide"
+                >
+                  {label}
+                </a>
+              </li>
+            ))
+          ) : ""}
+        </ul>
+
+        {/* ── Dark mode toggle ── */}
+        <button
+          id="theme-toggle"
+          onClick={onToggleTheme}
+          aria-label={isDark ? 'Mudar para modo claro' : 'Mudar para modo escuro'}
+          className="w-10 h-10 rounded-full flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-ceramicBlue dark:hover:text-goldenYellow hover:bg-ceramicBlue/[0.06] dark:hover:bg-goldenYellow/[0.08] border border-slate-200 dark:border-darkBorder transition-all duration-200"
+        >
+          {isDark ? <SunIcon /> : <MoonIcon />}
+        </button>
+      </nav>
+    </header>
+  );
+};
 
 export default Navbar;
