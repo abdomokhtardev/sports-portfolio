@@ -1,6 +1,6 @@
-# Client A
+# Ahmed-Awad-Tr
 
-مشروع React + Vite لإنشاء موقع احترافي لشخصية مترجم/مقدمة خدمات ترجمة، مع صفحة عرض تقديمي ولوحة إدارة بسيطة متكاملة مع Supabase.
+مشروع React + Vite لإنشاء موقع احترافي لشخصية مقدم خدمات ترجمة، مع صفحة عرض تقديمي ولوحة إدارة بسيطة متكاملة مع Supabase.
 
 ## نظرة عامة
 
@@ -14,6 +14,7 @@
 - صفحة تسجيل دخول ولوحة إدارة لإدارة المحتوى
   
 **رابط المعاينة الحية (Live Demo):** [ahmedawad-tr.netlify.app](https://ahmedawad-tr.netlify.app)  
+**رابط المعاينة الحية (Live Demo):** [https://ahmedawad-tr.pages.dev](https://ahmedawad-tr.pages.dev)  
 
 ## التقنيات المستخدمة
 
