@@ -102,10 +102,10 @@ export const testimonials = [
   {
     id: 1,
     quote:
-      "Working with him was an absolute pleasure. His ability to translate not just words but the emotion and tactical intent behind my instructions was remarkable. The players responded immediately — it felt completely natural.",
-    name: 'Marco Silva',
-    title: 'Head Coach — Fulham FC',
-    initials: 'MS',
+      "Your role as guide and translator was essential for the smooth execution of our participation, contributing not only to the team’s communication and logistics but also through your kindness, hospitality, and commitment in representing the Egyptian people in the best possible way.",
+    name: "Handebol Taubaté Sports Association",
+    title: "Official Letter of Recognition — 2025 IHF Men’s Super Globe",
+    initials: "HTSA"
   },
 ];
 
