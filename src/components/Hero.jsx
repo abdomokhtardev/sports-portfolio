@@ -1,4 +1,4 @@
-import profileImg     from '../assets/profile.png';
+import profileImg from '../assets/profile.png';
 import AzulejoPattern from './ui/AzulejoPattern';
 
 const CompassRose = ({ className = '' }) => (
@@ -83,11 +83,11 @@ const Hero = ({ personalInfo = {} }) => {
               {description}
             </p>
 
-          {/* CTA button */}
-          <a
-            id="hero-cta-button"
-            href="#contact"
-            className="
+            {/* CTA button */}
+            <a
+              id="hero-cta-button"
+              href="#contact"
+              className="
               inline-flex items-center gap-3
               bg-ceramicBlue hover:bg-goldenYellow
               dark:bg-blue-600 dark:hover:bg-goldenYellow
@@ -98,71 +98,71 @@ const Hero = ({ personalInfo = {} }) => {
               shadow-lg shadow-ceramicBlue/15 hover:shadow-goldenYellow/30
               group
             "
-          >
-            <span>Vamos conversar? / Let's Talk</span>
-            <svg
-              className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
-              fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}
-              aria-hidden="true"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </a>
+              <span>Vamos conversar? / Let's Talk</span>
+              <svg
+                className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}
+                aria-hidden="true"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
 
-          {/* Language social proof */}
-          <p className="font-sans text-sm text-slate-400 dark:text-slate-500 font-medium tracking-wide">
-            🌍 Portuguese · English · Spanish
-          </p>
-        </div>
+            {/* Language social proof */}
+            <p className="font-sans text-sm text-slate-400 dark:text-slate-500 font-medium tracking-wide">
+              🌍 Portuguese · English · Spanish . Arabic
+            </p>
+          </div>
 
-        {/* ── Right: Profile Image inside traditional Azulejo frame ── */}
-        <div className="flex-shrink-0 w-full max-w-sm lg:max-w-md xl:max-w-lg">
-          <div className="relative p-3.5 bg-lightCard dark:bg-darkCard border-[5px] border-double border-ceramicBlue/25 dark:border-blue-400/20 rounded-[2rem] shadow-2xl shadow-ceramicBlue/10 dark:shadow-blue-950/40 group overflow-hidden">
-            
-            {/* Glossy glazed tile effect overlay */}
-            <div className="absolute inset-0 glazed-tile pointer-events-none rounded-[1.8rem] opacity-30 group-hover:opacity-100 transition-opacity duration-700 z-20" />
+          {/* ── Right: Profile Image inside traditional Azulejo frame ── */}
+          <div className="flex-shrink-0 w-full max-w-sm lg:max-w-md xl:max-w-lg">
+            <div className="relative p-3.5 bg-lightCard dark:bg-darkCard border-[5px] border-double border-ceramicBlue/25 dark:border-blue-400/20 rounded-[2rem] shadow-2xl shadow-ceramicBlue/10 dark:shadow-blue-950/40 group overflow-hidden">
 
-            {/* Corner traditional tile framing ornaments */}
-            <div className="absolute top-4 left-4 w-5 h-5 border-t-2 border-l-2 border-ceramicBlue/45 dark:border-blue-400/40 rounded-tl-sm pointer-events-none z-20" />
-            <div className="absolute top-4 right-4 w-5 h-5 border-t-2 border-r-2 border-ceramicBlue/45 dark:border-blue-400/40 rounded-tr-sm pointer-events-none z-20" />
-            <div className="absolute bottom-4 left-4 w-5 h-5 border-b-2 border-l-2 border-ceramicBlue/45 dark:border-blue-400/40 rounded-bl-sm pointer-events-none z-20" />
-            <div className="absolute bottom-4 right-4 w-5 h-5 border-b-2 border-r-2 border-ceramicBlue/45 dark:border-blue-400/40 rounded-br-sm pointer-events-none z-20" />
+              {/* Glossy glazed tile effect overlay */}
+              <div className="absolute inset-0 glazed-tile pointer-events-none rounded-[1.8rem] opacity-30 group-hover:opacity-100 transition-opacity duration-700 z-20" />
 
-            <div className="relative rounded-2xl overflow-hidden aspect-[4/5] z-10">
-              {/* Azulejo tile background (visible before image loads) */}
-              <div className="absolute inset-0 bg-gradient-to-br from-ceramicBlue/5 via-slate-100 to-goldenYellow/5 dark:from-blue-900/20 dark:via-darkCard dark:to-goldenYellow/10 text-ceramicBlue dark:text-blue-500">
-                <AzulejoPattern opacity={0.09} />
-              </div>
+              {/* Corner traditional tile framing ornaments */}
+              <div className="absolute top-4 left-4 w-5 h-5 border-t-2 border-l-2 border-ceramicBlue/45 dark:border-blue-400/40 rounded-tl-sm pointer-events-none z-20" />
+              <div className="absolute top-4 right-4 w-5 h-5 border-t-2 border-r-2 border-ceramicBlue/45 dark:border-blue-400/40 rounded-tr-sm pointer-events-none z-20" />
+              <div className="absolute bottom-4 left-4 w-5 h-5 border-b-2 border-l-2 border-ceramicBlue/45 dark:border-blue-400/40 rounded-bl-sm pointer-events-none z-20" />
+              <div className="absolute bottom-4 right-4 w-5 h-5 border-b-2 border-r-2 border-ceramicBlue/45 dark:border-blue-400/40 rounded-br-sm pointer-events-none z-20" />
 
-              {/* Photo */}
-              <img
-                src={imageSrc}
-                alt="Professional profile photo"
-                className="relative z-10 w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-700 ease-out"
-              />
+              <div className="relative rounded-2xl overflow-hidden aspect-[4/5] z-10">
+                {/* Azulejo tile background (visible before image loads) */}
+                <div className="absolute inset-0 bg-gradient-to-br from-ceramicBlue/5 via-slate-100 to-goldenYellow/5 dark:from-blue-900/20 dark:via-darkCard dark:to-goldenYellow/10 text-ceramicBlue dark:text-blue-500">
+                  <AzulejoPattern opacity={0.09} />
+                </div>
 
-              {/* Bottom gradient overlay */}
-              <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t from-ceramicBlue/20 dark:from-darkBase/40 to-transparent z-20 pointer-events-none" />
+                {/* Photo */}
+                <img
+                  src={imageSrc}
+                  alt="Professional profile photo"
+                  className="relative z-10 w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-700 ease-out"
+                />
 
-              {/* Floating availability badge */}
-              <div className="absolute bottom-5 left-5 z-30 bg-lightCard/95 dark:bg-darkCard/95 backdrop-blur-sm px-4 py-2.5 rounded-2xl shadow-lg border border-lightBorder dark:border-darkBorder">
-                <p className="font-sans text-xs font-semibold text-ceramicBlue dark:text-blue-400 tracking-wide uppercase">
-                  Available for projects
-                </p>
-                <div className="flex items-center gap-1.5 mt-0.5">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <p className="font-sans text-xs text-lightMuted dark:text-slate-400">
-                    Open to collaboration
+                {/* Bottom gradient overlay */}
+                <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t from-ceramicBlue/20 dark:from-darkBase/40 to-transparent z-20 pointer-events-none" />
+
+                {/* Floating availability badge */}
+                <div className="absolute bottom-5 left-5 z-30 bg-lightCard/95 dark:bg-darkCard/95 backdrop-blur-sm px-4 py-2.5 rounded-2xl shadow-lg border border-lightBorder dark:border-darkBorder">
+                  <p className="font-sans text-xs font-semibold text-ceramicBlue dark:text-blue-400 tracking-wide uppercase">
+                    Available for projects
                   </p>
+                  <div className="flex items-center gap-1.5 mt-0.5">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <p className="font-sans text-xs text-lightMuted dark:text-slate-400">
+                      Open to collaboration
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
   );
 };
 

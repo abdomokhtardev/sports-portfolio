@@ -5,7 +5,7 @@ import { useState } from 'react';
 /** Detect whether a URL is YouTube or Facebook */
 const detectPlatform = (url = '') => {
   if (/youtube\.com|youtu\.be/.test(url)) return 'youtube';
-  if (/facebook\.com|fb\.watch/.test(url))  return 'facebook';
+  if (/facebook\.com|fb\.watch/.test(url)) return 'facebook';
   return null;
 };
 
@@ -100,9 +100,18 @@ const PlatformBadge = ({ platform }) => {
 const VideoEmbed = ({ url, title, duration }) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const platform  = detectPlatform(url);
-  const embedSrc  = buildEmbedSrc(url, platform);
+  const platform = detectPlatform(url);
+  const embedSrc = buildEmbedSrc(url, platform);
   const thumbnail = platform === 'youtube' ? getYouTubeThumbnail(url) : null;
+
+  // ── Is it an iframe embed code? ──
+  if (url && typeof url === 'string' && url.trim().toLowerCase().startsWith('<iframe')) {
+    return (
+      <div className="relative group w-full flex justify-center items-center rounded-2xl overflow-hidden [&>iframe]:max-w-full [&>iframe]:rounded-2xl">
+        <div dangerouslySetInnerHTML={{ __html: url }} className="w-full flex justify-center" />
+      </div>
+    );
+  }
 
   // ── Invalid or unsupported URL ──
   if (!platform || !embedSrc) {

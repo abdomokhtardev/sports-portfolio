@@ -16,29 +16,22 @@ const About = ({ biography, skills = [] }) => {
 
           {/* Lead paragraph with editorial drop cap */}
           <p className="font-sans text-xl md:text-2xl text-lightInk dark:text-slate-300 leading-relaxed font-light drop-cap">
-            Sou intérprete de desporto com uma paixão profunda pelo futebol, pela comunicação
-            e por conectar pessoas através de idiomas.
+            I am a Portuguese language interpreter specializing in sports communication, with experience working at international football and handball events alongside coaches, athletes, and national teams from different countries.
           </p>
  
           {/* Supporting paragraphs */}
           <div className="flex flex-col gap-5 text-lightMuted dark:text-slate-400 font-sans text-base leading-[1.85]">
             <p>
-              Over the past several years, I have had the privilege of working alongside
-              professional football coaches, technical staff, and elite athletes — translating
-              not just words, but the philosophy, emotion, and tactical nuance that defines
-              the beautiful game. From training-ground sessions to press conferences, I bridge
-              the communication gap with precision and discretion.
+              Over the years, I have had the privilege of serving as an official interpreter at major international sports events, collaborating with renowned football figures and representing Portuguese national teams in world championships.
             </p>
             <p>
-              Beyond the pitch, I create Portuguese-language content about football culture,
-              coaching methodologies, and the interpreter's craft — helping a growing community
-              of fans and professionals access insights that would otherwise remain behind
-              a language barrier.
+              I am also the Founder and Director of Portuguese Way Academy, an academy dedicated to teaching the Portuguese language and creating real opportunities through language learning.
             </p>
             <p>
-              Whether you need a trusted interpreter for your next pre-season tour, a
-              multilingual media liaison, or engaging content for a Portuguese-speaking audience,
-              I bring fluency, professionalism, and genuine love for the game to every project.
+              I believe that learning a language goes far beyond grammar—it's about building connections, opening doors, and creating opportunities that can change lives.
+            </p>
+            <p>
+              I bring professionalism, discretion, and a genuine passion for communication, sports, and the Portuguese language to every project I undertake.
             </p>
           </div>
  

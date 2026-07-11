@@ -111,9 +111,9 @@ const VideosTab = ({ siteContent, setSiteContent }) => {
             />
           </FormField>
 
-          <FormField label="رابط الفيديو" hint="مثال: https://www.youtube.com/watch?v=...">
-            <input
-              className={inputClass}
+          <FormField label="رابط الفيديو أو كود التضمين" hint="مثال: https://www.youtube.com/... أو <iframe src='...'>">
+            <textarea
+              className={`${inputClass} min-h-[80px] resize-y`}
               value={form.video_url}
               onChange={(e) => setForm((p) => ({ ...p, video_url: e.target.value }))}
               required

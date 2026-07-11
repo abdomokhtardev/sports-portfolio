@@ -8,6 +8,8 @@ const Footer = ({
   email = 'contact@example.com',
   languages = ['🇵🇹 Portuguese', '🇬🇧 English', '🇪🇸 Spanish'],
 }) => {
+
+  console.log(socialLinks)
   return (
     <div className="relative">
       {/* Calçada wave visual transition at the top of the footer */}
