@@ -3,7 +3,7 @@
 //  كل دالة تحتوي على تعليقات عربية لشرح آلية العمل باستخدام Firebase
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { db, storage, auth } from './firebase';
+import { db, auth } from './firebase';
 import {
   collection,
   doc,
