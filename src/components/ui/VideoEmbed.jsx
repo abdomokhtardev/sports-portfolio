@@ -106,10 +106,23 @@ const VideoEmbed = ({ url, title, duration }) => {
 
   // ── Is it an iframe embed code? ──
   if (url && typeof url === 'string' && url.trim().toLowerCase().startsWith('<iframe')) {
+    // محاولة استخراج الأبعاد الأصلية من كود الـ iframe للحفاظ على التناسق (Aspect Ratio)
+    let w = 16;
+    let h = 9;
+    const widthMatch = url.match(/width=(?:'|")(\d+)(?:'|")/);
+    const heightMatch = url.match(/height=(?:'|")(\d+)(?:'|")/);
+    
+    if (widthMatch && heightMatch) {
+      w = parseInt(widthMatch[1], 10);
+      h = parseInt(heightMatch[1], 10);
+    }
+
     return (
-      <div className="relative group w-full flex justify-center items-center rounded-2xl overflow-hidden [&>iframe]:max-w-full [&>iframe]:rounded-2xl">
-        <div dangerouslySetInnerHTML={{ __html: url }} className="w-full flex justify-center" />
-      </div>
+      <div 
+        className="relative w-full rounded-2xl overflow-hidden bg-black/5 dark:bg-black/20 [&_iframe]:absolute [&_iframe]:top-0 [&_iframe]:left-0 [&_iframe]:w-full [&_iframe]:h-full"
+        style={{ aspectRatio: `${w} / ${h}` }}
+        dangerouslySetInnerHTML={{ __html: url }}
+      />
     );
   }
 

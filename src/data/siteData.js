@@ -111,14 +111,14 @@ export const testimonials = [
 
 /** @type {string[]} */
 export const skills = [
-  'Football Interpretation',
-  'Portuguese',
-  'English',
-  'Spanish',
+  'Sports Interpretation',
+  'International Handball',
+  'Brazilian Portuguese',
+  'Spanish & Portuguese',
   'Content Creation',
-  'Media Liaison',
+  'Cross-Cultural Communication ',
   'Press Conferences',
-  'Training Sessions',
+  'Founder of Portuguese Way Academy',
 ];
 
 /** @type {string[]} */
@@ -126,7 +126,7 @@ export const languages = ['🇵🇹 Portuguese', '🇬🇧 English', '🇪🇸 S
 
 /** @type {{ id: string, href: string, label: string, platform: string }[]} */
 export const socialLinks = [
-  { id: 'social-youtube',  href: 'https://youtube.com',  label: 'YouTube',  platform: 'youtube'  },
+  { id: 'social-youtube', href: 'https://youtube.com', label: 'YouTube', platform: 'youtube' },
   { id: 'social-facebook', href: 'https://facebook.com', label: 'Facebook', platform: 'facebook' },
   { id: 'social-linkedin', href: 'https://linkedin.com', label: 'LinkedIn', platform: 'linkedin' },
 ];

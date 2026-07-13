@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { supabase } from '../../lib/supabase';
+import { auth } from '../../lib/firebase';
 import { changePassword } from '../../lib/contentService';
 import { DashboardCard, FormField, inputClass, Alert, PrimaryButton } from './shared';
 
@@ -16,9 +16,11 @@ const PasswordTab = () => {
 
   // جلب بريد المستخدم الحالي من الجلسة النشطة
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session?.user?.email) setEmail(session.user.email);
-    });
+    // يمكننا استخدام auth.currentUser طالما أننا تأكدنا من تسجيل الدخول في Dashboard
+    const user = auth.currentUser;
+    if (user?.email) {
+      setEmail(user.email);
+    }
   }, []);
 
   const handleSubmit = async (e) => {

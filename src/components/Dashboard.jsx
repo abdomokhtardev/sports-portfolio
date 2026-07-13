@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { supabase } from '../lib/supabase';
+import { auth } from '../lib/firebase';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 import AzulejoPattern from './ui/AzulejoPattern';
 import GeneralInfoTab from './dashboard/GeneralInfoTab';
 import VideosTab from './dashboard/VideosTab';
@@ -21,21 +22,20 @@ const Dashboard = ({ siteContent, setSiteContent }) => {
   const [authLoading, setAuthLoading] = useState(true);
   const navigate = useNavigate();
 
-  // التحقق من الجلسة — getSession يقرأ التوكن المخزّن محلياً
+  // التحقق من الجلسة باستخدام Firebase Auth
   useEffect(() => {
-    const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (!user) {
         navigate('/login');
       }
       setAuthLoading(false);
-    };
-    checkSession();
+    });
+    return () => unsubscribe(); // تنظيف المستمع عند إلغاء التحميل
   }, [navigate]);
 
   const handleLogout = async () => {
     // signOut — يُنهي الجلسة ويمسح التوكن من التخزين المحلي
-    await supabase.auth.signOut();
+    await signOut(auth);
     navigate('/');
   };
 

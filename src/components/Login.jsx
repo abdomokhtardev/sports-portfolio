@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '../lib/supabase';
+import { auth } from '../lib/firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -16,13 +17,12 @@ const Login = () => {
     setLoading(true);
     setErrorMsg('');
 
-    // signInWithPassword — يرسل البيانات لـ Supabase Auth ويُنشئ جلسة عند النجاح
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-
-    if (error) {
-      setErrorMsg('البريد أو كلمة المرور غير صحيحة');
-    } else {
+    try {
+      // signInWithEmailAndPassword — يرسل البيانات لـ Firebase Auth ويُنشئ جلسة عند النجاح
+      await signInWithEmailAndPassword(auth, email, password);
       navigate('/dashboard');
+    } catch (error) {
+      setErrorMsg('البريد أو كلمة المرور غير صحيحة');
     }
     setLoading(false);
   };

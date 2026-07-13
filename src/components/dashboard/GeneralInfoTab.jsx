@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
-import { saveSiteSettings, uploadProfileImage } from '../../lib/contentService';
+import { saveSiteSettings } from '../../lib/contentService';
+import { compressImageToBase64 } from '../../lib/imageUtils';
 import {
   DashboardCard,
   FormField,
@@ -8,7 +9,6 @@ import {
   Alert,
   PrimaryButton,
   GhostButton,
-  ToggleButtons,
 } from './shared';
 
 const emptyLink = () => ({
@@ -17,11 +17,6 @@ const emptyLink = () => ({
   label: '',
   platform: '',
 });
-
-const IMAGE_MODES = [
-  { id: 'link', label: 'رابط خارجي' },
-  { id: 'upload', label: 'رفع صورة' },
-];
 
 const GeneralInfoTab = ({ siteContent, setSiteContent }) => {
   const savedImage = siteContent.personalInfo.profileImageUrl ?? '';
@@ -35,10 +30,12 @@ const GeneralInfoTab = ({ siteContent, setSiteContent }) => {
     email: siteContent.personalInfo.email ?? '',
     profileImageUrl: savedImage,
   });
-  const [imageMode, setImageMode] = useState('link');
+  
+  const [imageMode, setImageMode] = useState('upload'); // 'link' or 'upload'
   const [imageRemoved, setImageRemoved] = useState(false);
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef(null);
+
   const [socialLinks, setSocialLinks] = useState(
     siteContent.socialLinks?.length ? [...siteContent.socialLinks] : [emptyLink()]
   );
@@ -57,18 +54,29 @@ const GeneralInfoTab = ({ siteContent, setSiteContent }) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    // Check file type and size
+    if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+      setMsg({ type: 'error', text: 'الصيغ المسموحة: JPG, PNG, WebP' });
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      setMsg({ type: 'error', text: 'حجم الصورة يجب أن لا يتجاوز 5 ميجابايت' });
+      return;
+    }
+
     setUploading(true);
     setMsg({ type: '', text: '' });
 
-    const result = await uploadProfileImage(file);
-
-    if (result.ok) {
-      updateField('profileImageUrl', result.url);
+    try {
+      // Compress to Base64 (max 800px width/height, 0.7 quality)
+      const base64Url = await compressImageToBase64(file, 800, 800, 0.7);
+      updateField('profileImageUrl', base64Url);
       setImageRemoved(false);
-      setMsg({ type: 'success', text: 'تم رفع الصورة — اضغط "حفظ التغييرات" لتثبيتها' });
-    } else {
-      setMsg({ type: 'error', text: result.error ?? 'فشل رفع الصورة' });
+      setMsg({ type: 'success', text: 'تم ضغط ومعالجة الصورة بنجاح! اضغط "حفظ" لتثبيتها.' });
+    } catch (error) {
+      setMsg({ type: 'error', text: 'حدث خطأ أثناء معالجة الصورة.' });
     }
+
     setUploading(false);
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
@@ -80,6 +88,9 @@ const GeneralInfoTab = ({ siteContent, setSiteContent }) => {
 
     const trimmedImage = form.profileImageUrl.trim();
     const profileImageUrl = imageRemoved ? '' : (trimmedImage || savedImage);
+
+    // Limit base64 length in normal context, but Firestore supports 1MB per document
+    // Our compressed base64 should be ~50-200KB, which is perfectly safe.
 
     const personalInfoData = {
       name: form.name.trim(),
@@ -150,7 +161,7 @@ const GeneralInfoTab = ({ siteContent, setSiteContent }) => {
         </div>
       </DashboardCard>
 
-      <DashboardCard title="صورة البرتفوليو" subtitle="تظهر في قسم البطل — رابط خارجي أو رفع مباشر">
+      <DashboardCard title="صورة البرتفوليو" subtitle="تظهر في قسم البطل — يمكنك رفع صورة أو وضع رابط خارجي">
         {previewImage && (
           <div className="mb-5 flex justify-center">
             <div className="relative w-40 h-48 rounded-2xl overflow-hidden border-2 border-ceramicBlue/25 dark:border-goldenYellow/20 shadow-md">
@@ -159,10 +170,26 @@ const GeneralInfoTab = ({ siteContent, setSiteContent }) => {
           </div>
         )}
 
-        <ToggleButtons options={IMAGE_MODES} value={imageMode} onChange={setImageMode} />
+        {/* Toggle Mode */}
+        <div className="flex bg-slate-100 dark:bg-slate-800/50 p-1 rounded-xl mb-6 max-w-sm mx-auto">
+          <button
+            type="button"
+            onClick={() => setImageMode('upload')}
+            className={`flex-1 text-sm font-semibold py-2 rounded-lg transition-all ${imageMode === 'upload' ? 'bg-white dark:bg-slate-700 shadow text-blue-600 dark:text-blue-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
+          >
+            رفع صورة (مباشر)
+          </button>
+          <button
+            type="button"
+            onClick={() => setImageMode('link')}
+            className={`flex-1 text-sm font-semibold py-2 rounded-lg transition-all ${imageMode === 'link' ? 'bg-white dark:bg-slate-700 shadow text-blue-600 dark:text-blue-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
+          >
+            رابط خارجي
+          </button>
+        </div>
 
         {imageMode === 'link' ? (
-          <FormField label="رابط الصورة" hint="اتركه فارغاً للاحتفاظ بالصورة الحالية">
+          <FormField label="رابط الصورة" hint="اتركه فارغاً للاحتفاظ بالصورة الحالية (استخدم موقع مثل Imgur أو ضع مسار صورة محلية)">
             <input
               className={inputClass}
               value={form.profileImageUrl}
@@ -172,7 +199,7 @@ const GeneralInfoTab = ({ siteContent, setSiteContent }) => {
             />
           </FormField>
         ) : (
-          <FormField label="اختر صورة" hint="JPG أو PNG أو WebP — حد أقصى 5 ميجابايت">
+          <FormField label="اختر صورة" hint="سيتم تحويلها لبيانات نصية صغيرة (Base64) وحفظها فوراً">
             <input
               ref={fileInputRef}
               type="file"
@@ -184,7 +211,7 @@ const GeneralInfoTab = ({ siteContent, setSiteContent }) => {
                 file:bg-ceramicBlue/12 file:text-ceramicBlue dark:file:bg-goldenYellow/15 dark:file:text-goldenYellow
                 file:font-medium file:cursor-pointer"
             />
-            {uploading && <p className="text-sm text-lightMuted animate-pulse mt-2">جاري رفع الصورة...</p>}
+            {uploading && <p className="text-sm text-lightMuted animate-pulse mt-2">جاري معالجة الصورة...</p>}
           </FormField>
         )}
 
